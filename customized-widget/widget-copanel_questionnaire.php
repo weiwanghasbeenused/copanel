@@ -49,6 +49,19 @@ class copanel_questionnaire_widget extends WP_Widget {
 		$lang_var['zh-TW']['submit'] = '查看推薦房源及文章';
 		$lang_var['zh-CN']['submit'] = '查看推薦房源及文章';
 		$lang_var['en-US']['submit'] = 'Recommended Houses and Posts';
+
+		$lang_var['zh-TW']['q6_last_option'] = '同';
+		$lang_var['zh-CN']['q6_last_option'] = '同';
+		$lang_var['en-US']['q6_last_option'] = 'Same as ';
+
+		$lang_var['zh-TW']['q6_last_option-school'] = '學校地點';
+		$lang_var['zh-CN']['q6_last_option-school'] = '学校地点';
+		$lang_var['en-US']['q6_last_option-school'] = 'school location';
+
+		$lang_var['zh-TW']['q6_last_option-work'] = '工作地點';
+		$lang_var['zh-CN']['q6_last_option-work'] = '工作地点';
+		$lang_var['en-US']['q6_last_option-work'] = 'work location';
+
 		?><div id = 'question_ctner' class = ''>
 			<div id = 'saved_q_ctner' class = 'concentrated-box'>
 				<div class = 'saved_q_holder'><div></div></div>
@@ -82,7 +95,7 @@ class copanel_questionnaire_widget extends WP_Widget {
 		}
 		?>
 		<div class = 'question_ctner concentrated-box'>
-			<div id = 'submit_btn' onclick = 'submit_q_form();'><? echo $lang_var[$current_lang]['submit']; ?></div>
+			<div id = 'submit_btn' onclick = 'submit_q_form();'><?php echo $lang_var[$current_lang]['submit']; ?></div>
 		</div>
 		</div>
 		<form id = 'q_form' method = 'POST' action = ''>
@@ -103,12 +116,6 @@ class copanel_questionnaire_widget extends WP_Widget {
 			function submit_q_form(){
 				var sQ_form = document.getElementById('q_form');
 				var sQ_form_input = document.querySelectorAll('#q_form input');
-				// [].forEach.call(sQ_form_input, function(el, i){
-				// 	var this_value = el.value;
-				// 	if(this_value == '')
-				// 		el.value = false;
-				// 	console.log(el.value);
-				// });
 				// sQ_form.submit();
 			}
 			function next_q(this_q, this_option, this_option_content){
@@ -137,11 +144,11 @@ class copanel_questionnaire_widget extends WP_Widget {
 					if(this_option_order == 8)
 						next_question_order = 3;
 					else
-						next_question_order = 6;
+						next_question_order = 5;
 				}else if(this_q_order == 4){
-						next_question_order = 6;
+						next_question_order = 5;
 				}else if(this_q_order == 5){
-						next_question_order = 6;
+						next_question_order = 5;
 				}else if(this_q_order == 6){
 						next_question_order = 6;
 				}else if(this_q_order == 7){
@@ -163,6 +170,20 @@ class copanel_questionnaire_widget extends WP_Widget {
 				next_question.classList.add('isAsked');
 				if( next_question_order < sQuestion.length-1)
 					sQuestion[next_question_order].innerHTML = 'Q'+q_counter+'. '+sQuestion[next_question_order].innerHTML;
+				if( next_question_order == 5){
+					var sQ2_input = document.getElementById('q_input_2');
+					var q6_last_option = next_question.getElementsByClassName('option');
+					q6_last_option = q6_last_option[q6_last_option.length-1];
+
+					if(sQ2_input.value == '3'){
+						q6_last_option.parentNode.removeChild(q6_last_option);
+					}else if(sQ2_input.value == '2'){
+						q6_last_option.innerText = "<?php echo $lang_var[$current_lang]['q6_last_option'].$lang_var[$current_lang]['q6_last_option-work']; ?>";
+					}else{
+						q6_last_option.innerText = "<?php echo $lang_var[$current_lang]['q6_last_option'].$lang_var[$current_lang]['q6_last_option-school']; ?>";
+					}
+				}
+				
 			}
 		</script>
 		<?php
