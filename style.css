@@ -1990,7 +1990,7 @@ p.price{
 	margin: 0 auto;
 }
 #question_ctner{
-	font-size: 1.2rem;
+	font-size: 1rem;
 	text-align: center;
 
 }
@@ -2001,9 +2001,9 @@ p.price{
 	/*width: 0;*/
 }
 .question_ctner.isAsked{
-	padding-top: 35px;
+	padding-top: 20px;
 	border-top: 1px solid black;
-	margin-top: 35px;
+	margin-top: 20px;
 	height: auto;
 	/*width: ;*/
 	opacity: 1;
@@ -2014,7 +2014,7 @@ p.price{
 }
 .option{
 	cursor: pointer;
-	padding: 15px;
+	padding: 12px 10px;
 	margin: 0 auto;
 	background-color: #EEE;
 	border-bottom: 5px solid #fff;
