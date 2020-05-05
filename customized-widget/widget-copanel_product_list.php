@@ -289,7 +289,7 @@ class copanel_product_list_widget extends WP_Widget {
 				        	foreach($cates as $cate){
 				        		if($cate->name != "Uncategorized"){
 		        		?>
-		        		<a class = "post_list_cate" href = "<?php echo get_category_link($cate->term_id); ?> "><?php echo $cate->name ?></a>
+		        		<a class = "post_list_cate" ><?php echo $cate->name ?></a>
 		        		<?php
 				            	}
 				        	}

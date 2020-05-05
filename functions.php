@@ -252,7 +252,9 @@ function print_post_items($this_id, $cates, $listed_post_type, $list_type = 'blo
 		    if(!empty($cates)){
 		    	foreach($cates as $cate){
 		    		if($cate->name != "Uncategorized"){
-		    		?><a class = "post_list_cate" href = '<?php echo get_category_link($cate->term_id); ?> '><?php echo $cate->name; ?></a>
+		    			$this_cate_name = $cate->name;
+		    			$this_cate_href = $listed_post_type == 'post' ? 'href = "'.get_category_link($cate->term_id).'"' : '';
+		    		?><a class = "post_list_cate" <?php echo $this_cate_href; ?> ><?php echo $cate->name; ?></a>
 		    		<?php
 		        	}
 		    	}
@@ -323,7 +325,7 @@ function get_post_list($arr, $listed_post_type, $list_type = 'block', $displayEx
 		?>
 		<h4 class = 'recommended_title'><?php echo $lang_var[$current_lang][$listed_post_type]; ?></h4>
 		<?php
-		printf('<ul class = "post_list_ctner post_list_ctner_'.$list_type.'">');
+		printf('<ul class = "'.$listed_post_type.'_rec_list post_list_ctner post_list_ctner_'.$list_type.'">');
 		// die();
 		while ( $post_list->have_posts() ){
 			$post_list->the_post();

@@ -21,13 +21,30 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! $product_attributes ) {
 	return;
+}else{
+	global $current_lang;
+	// var_dump($product_attributes);
+
+	$lang_var = array();
+	$lang_var['en-US']['bathroom'] = 'bathroom(s)';
+	$lang_var['en-US']['bedroom'] = 'bedroom(s)';
+	$lang_var['en-US']['housing-type'] = '';
+	$lang_var['zh-TW']['bathroom'] = '衛';
+	$lang_var['zh-TW']['bedroom'] = '臥';
+	$lang_var['zh-TW']['housing-type'] = '';
+	$lang_var['zh-CN']['bathroom'] = '卫';
+	$lang_var['zh-CN']['bedroom'] = '臥';
+	$lang_var['zh-CN']['housing-type'] = '';
+	
+	$product_attr_filtered = array();
+	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_bedroom']['value'])).' '.$lang_var[$current_lang]['bedroom'];
+	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_bathroom']['value'])).' '.$lang_var[$current_lang]['bathroom'];
+	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_housing-type']['value'])).' '.$lang_var[$current_lang]['housing-type'];
+
 }
 ?>
-<table class="woocommerce-product-attributes shop_attributes">
-	<?php foreach ( $product_attributes as $product_attribute_key => $product_attribute ) : ?>
-		<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--<?php echo esc_attr( $product_attribute_key ); ?>">
-			<th class="woocommerce-product-attributes-item__label"><?php echo wp_kses_post( $product_attribute['label'] ); ?></th>
-			<td class="woocommerce-product-attributes-item__value"><?php echo wp_kses_post( $product_attribute['value'] ); ?></td>
-		</tr>
+<div class="woocommerce-product-attributes shop_attributes">
+	<?php foreach ( $product_attr_filtered as $paf ) : ?>
+		<span class = 'woocommerce-product-attributes-item'><?php echo $paf; ?></span>
 	<?php endforeach; ?>
-</table>
+</div>

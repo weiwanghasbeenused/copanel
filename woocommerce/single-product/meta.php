@@ -31,7 +31,18 @@ global $product;
 
 	<?php endif; ?>
 
-	<?php echo wc_get_product_category_list( $product->get_id(), ', ', '<span class="posted_in">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
+	<?php 
+		$cates = get_the_terms($this_id, 'product_cat'); 
+		if(!empty($cates)){
+        	foreach($cates as $cate){
+        		if($cate->name != "Uncategorized"){
+	?>
+					<a class = "post_list_cate" ><?php echo $cate->name ?></a>
+	<?php 
+				}
+			} 
+		}
+	?>
 
 	<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
 
