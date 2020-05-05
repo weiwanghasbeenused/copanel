@@ -32,6 +32,7 @@ global $product;
 	<?php endif; ?>
 
 	<?php 
+		$this_id = get_the_ID();
 		$cates = get_the_terms($this_id, 'product_cat'); 
 		if(!empty($cates)){
         	foreach($cates as $cate){

@@ -29,17 +29,38 @@ if ( ! $product_attributes ) {
 	$lang_var['en-US']['bathroom'] = 'bathroom(s)';
 	$lang_var['en-US']['bedroom'] = 'bedroom(s)';
 	$lang_var['en-US']['housing-type'] = '';
+	$lang_var['en-US']['apartment'] = 'apartment';
+	$lang_var['en-US']['studio'] = 'studio';
+	$lang_var['en-US']['condo'] = 'condo';
+	$lang_var['en-US']['coop'] = 'coop';
+	$lang_var['en-US']['house'] = 'house';
+	$lang_var['en-US']['multifamily'] = 'multifamily';
+
 	$lang_var['zh-TW']['bathroom'] = '衛';
 	$lang_var['zh-TW']['bedroom'] = '臥';
 	$lang_var['zh-TW']['housing-type'] = '';
+	$lang_var['zh-TW']['apartment'] = '公寓';
+	$lang_var['zh-TW']['studio'] = '工作室';
+	$lang_var['zh-TW']['condo'] = '獨立產權公寓';
+	$lang_var['zh-TW']['coop'] = '合作公寓';
+	$lang_var['zh-TW']['house'] = '獨棟別墅';
+	$lang_var['zh-TW']['multifamily'] = '多單元房';
+
 	$lang_var['zh-CN']['bathroom'] = '卫';
 	$lang_var['zh-CN']['bedroom'] = '臥';
 	$lang_var['zh-CN']['housing-type'] = '';
+	$lang_var['zh-CN']['apartment'] = '公寓';
+	$lang_var['zh-CN']['studio'] = '工作室';
+	$lang_var['zh-CN']['condo'] = '独立产权公寓';
+	$lang_var['zh-CN']['coop'] = '合作公寓';
+	$lang_var['zh-CN']['house'] = '独栋别墅';
+	$lang_var['zh-CN']['multifamily'] = '多单元房';
 	
 	$product_attr_filtered = array();
 	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_bedroom']['value'])).' '.$lang_var[$current_lang]['bedroom'];
 	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_bathroom']['value'])).' '.$lang_var[$current_lang]['bathroom'];
-	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_housing-type']['value'])).' '.$lang_var[$current_lang]['housing-type'];
+	$value_housing = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_housing-type']['value']));
+	$product_attr_filtered[] = $lang_var[$current_lang][$value_housing];
 
 }
 ?>
