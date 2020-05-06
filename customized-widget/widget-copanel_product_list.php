@@ -88,9 +88,7 @@ class copanel_product_list_widget extends WP_Widget {
 					$max_val = max($filter_var[$thisAttr]["options"][0]);
 					$min_val = min($filter_var[$thisAttr]["options"][0]);
 					$filter_var[$thisAttr]["options"][0] = range($min_val, $max_val);
-					$filter_var[$thisAttr]["options"][1] = $filter_var[$thisAttr]["options"][0];
-					var_dump($filter_var[$thisAttr]["options"][0]);
-					
+					$filter_var[$thisAttr]["options"][1] = $filter_var[$thisAttr]["options"][0];					
 					array_pop($filter_var[$thisAttr]["options"][0]);
 					array_shift($filter_var[$thisAttr]["options"][1]);
 					array_unshift($filter_var[$thisAttr]["options"][0], 'no minimum');
@@ -222,7 +220,7 @@ class copanel_product_list_widget extends WP_Widget {
 		  		}else{
 		  			$this_tax_filter = array(
 			  			'taxonomy' => 'pa_'.$key,
-			  			'field'    => 'slug',
+			  			'field'    => 'name',
 			  		);
 			  		if(is_array($val)){
 			  			if(is_numeric($val[0])){
@@ -249,7 +247,6 @@ class copanel_product_list_widget extends WP_Widget {
 		  		$url_query_value[$key] = array();
 		  	}
 		}
-
 
 		function loadItems( $post_type, $posts_per_page, $paged, $meta_query, $tax_query){
 			$this_query = array(
