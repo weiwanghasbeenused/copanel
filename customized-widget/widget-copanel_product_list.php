@@ -186,6 +186,8 @@ class copanel_product_list_widget extends WP_Widget {
 		$tax_filter = array();
 		$tax_filter['relation'] = 'AND';
 		$meta_query = array();
+		$lang_slug = strtolower($current_lang);
+		// $lang_slug = '';
 		// getting query from url
 		foreach ($filter_var_list as $fvl) {
 			if(!empty($_GET[$fvl]))
@@ -220,7 +222,7 @@ class copanel_product_list_widget extends WP_Widget {
 		  		}else{
 		  			$this_tax_filter = array(
 			  			'taxonomy' => 'pa_'.$key,
-			  			'field'    => 'name',
+			  			'field'    => 'slug',
 			  		);
 			  		if(is_array($val)){
 			  			if(is_numeric($val[0])){
@@ -242,6 +244,13 @@ class copanel_product_list_widget extends WP_Widget {
 			  			$this_tax_filter['terms'] =  $val;
 			  		}
 			  		$tax_filter[] = $this_tax_filter;
+		  		}
+		  		if(is_array($this_tax_filter['terms'])){
+		  			foreach($this_tax_filter['terms'] as &$term)
+		  				$term = $term + $lang_slug;
+		  			unset($term);
+		  		}else{
+		  			$this_tax_filter['terms'] = $this_tax_filter['terms'] + $lang_slug;
 		  		}
 		  	}else{
 		  		$url_query_value[$key] = array();
