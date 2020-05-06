@@ -247,10 +247,10 @@ class copanel_product_list_widget extends WP_Widget {
 		  		}
 		  		if(is_array($this_tax_filter['terms'])){
 		  			foreach($this_tax_filter['terms'] as &$term)
-		  				$term = $term + $lang_slug;
+		  				$term = $term . $lang_slug;
 		  			unset($term);
 		  		}else{
-		  			$this_tax_filter['terms'] = $this_tax_filter['terms'] + $lang_slug;
+		  			$this_tax_filter['terms'] = $this_tax_filter['terms'] . $lang_slug;
 		  		}
 		  	}else{
 		  		$url_query_value[$key] = array();
