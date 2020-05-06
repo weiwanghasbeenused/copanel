@@ -313,7 +313,9 @@ class copanel_product_list_widget extends WP_Widget {
 		
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$post_list = loadItems('product', 4, $paged,$meta_query, $tax_filter);
+		var_dump($meta_query);
+		// die();
+		$post_list = loadItems('product', 4, $paged, $meta_query, $tax_filter);
 		$root_url = get_site_url();
 		?>
 		<div id = "filter_ctner">
@@ -364,14 +366,14 @@ class copanel_product_list_widget extends WP_Widget {
 		        			}
 		        			else{
 		        				$active = true;
-		        				$thisValue = $url_query_value[$field][$key];
-		        			}			
+		        						        			}			
 							?>
 
 							<div class = "filter_field <?php echo $field; ?>_field">
 		        			<label class = 'filter_label single_label'><?php echo $lang_var[$current_lang][$field_lang]; ?></label>
 		        			
 		 					<?php foreach( $filter_var[$field]["options"] as $key => $fo ){
+		 						$thisValue = $url_query_value[$field][$key];
 		 						if($key != 0){
 		 							?><span class = 'filter_dash'>&mdash;</span><?php
 		 						}
@@ -385,7 +387,7 @@ class copanel_product_list_widget extends WP_Widget {
 		 								}else{
 		 									$f_display = $f;
 		 								}
-		 								$selected = ( $f == $thisValue ) ? 'selected' : '';
+		 								$selected = ( $f === intval($thisValue) ) ? 'selected' : '';
 		 								if(is_numeric($f)){
 		 								?>
 		 									<option value="<?php echo $f; ?>" <?php echo $selected ?> ><?php echo $f_display; ?></option>
