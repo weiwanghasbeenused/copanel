@@ -89,6 +89,7 @@ class copanel_product_list_widget extends WP_Widget {
 					$min_val = min($filter_var[$thisAttr]["options"][0]);
 					$filter_var[$thisAttr]["options"][0] = range($min_val, $max_val);
 					$filter_var[$thisAttr]["options"][1] = $filter_var[$thisAttr]["options"][0];
+					var_dump($filter_var[$thisAttr]["options"][0]);
 					
 					array_pop($filter_var[$thisAttr]["options"][0]);
 					array_shift($filter_var[$thisAttr]["options"][1]);
@@ -377,7 +378,7 @@ class copanel_product_list_widget extends WP_Widget {
 		 						}
 								?>
 		 						<select id = "" class = "house_list_filter select_ctner <?php echo ($active) ? 'active' : ''  ?>" name = "<?php echo $field; ?>[]">
-		 							<?php foreach( $fo as $key => $f ){ 
+		 							<?php foreach( $fo as $f ){ 
 		 								if($field == 'price' && is_numeric($f)){
 		 									$f_display = number_format($f);
 		 								}elseif(!is_numeric($f)){
