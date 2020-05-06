@@ -249,7 +249,6 @@ class copanel_product_list_widget extends WP_Widget {
 			  		$tax_filter[] = $this_tax_filter;
 
 		  		}
-		  		var_dump($tax_filter);
 		  	}else{
 		  		$url_query_value[$key] = array();
 		  	}
