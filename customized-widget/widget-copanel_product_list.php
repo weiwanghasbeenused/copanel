@@ -313,8 +313,6 @@ class copanel_product_list_widget extends WP_Widget {
 		
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		var_dump($meta_query);
-		// die();
 		$post_list = loadItems('product', 4, $paged, $meta_query, $tax_filter);
 		$root_url = get_site_url();
 		?>
@@ -357,23 +355,23 @@ class copanel_product_list_widget extends WP_Widget {
 		        			}
 		        			?></div><?php
 		        		}elseif($filter_var[$field]['input-type'] == 'select'){
-		        			if(empty($url_query_value[$field])){
-		        				$active = false;
-		        				// some impossible value
-		        				// note that php values ( 'non-numeral string' == 0 ) as true
-		        				// they are probably both false
-		        				$thisValue = -100;
-		        			}
-		        			else{
-		        				$active = true;
-		        						        			}			
+		        				
 							?>
 
 							<div class = "filter_field <?php echo $field; ?>_field">
 		        			<label class = 'filter_label single_label'><?php echo $lang_var[$current_lang][$field_lang]; ?></label>
 		        			
 		 					<?php foreach( $filter_var[$field]["options"] as $key => $fo ){
-		 						$thisValue = $url_query_value[$field][$key];
+		 						if(empty($url_query_value[$field])){
+			        				$active = false;
+			        				// some impossible value
+			        				// note that php values ( 'non-numeral string' == 0 ) as true
+			        				$thisValue = -100;
+			        			}
+			        			else{
+			        				$active = true;
+			        				$thisValue = $url_query_value[$field][$key];
+			        			}				 						
 		 						if($key != 0){
 		 							?><span class = 'filter_dash'>&mdash;</span><?php
 		 						}
