@@ -29,9 +29,7 @@ class copanel_slideshow_widget extends WP_Widget {
 		$first_slide_description = $instance['description'];
 		$product_slide_num = $instance['product_slide_num'];
 		$slide_interval = $instance['slide_interval'];
-		$first_slide_background_url = $instance['background_url'];
-		// echo $title;
-		// die();
+		$first_slide_background_url = isset($instance['background_url']) ? $instance['background_url'] : '';
 		// setting up options of filters;
 		function loadItems( $post_type, $posts_per_page, $paged, $tax_query){
 			$this_query = array(
@@ -43,17 +41,10 @@ class copanel_slideshow_widget extends WP_Widget {
 			);
 			return new WP_Query($this_query);
 		}
-		function displaySlideshow ($post_list, $root_url = null, $lang_var = null, $num, $title = null, $des = null, $background_url = null){
-			$current_lang = get_bloginfo('language');
-
-
-
+		function displaySlideshow ($post_list, $root_url = null, $lang_var = null, $num, $title = '', $des = '', $background_url = ''){
 			?><div id = "slideshow_ctner">
 				<div id = "slideshow_viewport">
-					
 					<ul>
-			<?php
-			?>
 			<li class = 'slide'>
 				<a style = 'background-image: url("<?php echo $background_url; ?>")'>
 					<div class = 'slide_info_ctner'>
@@ -100,9 +91,7 @@ class copanel_slideshow_widget extends WP_Widget {
 
         wp_reset_postdata();
    		remove_filter( 'posts_where', 'filter_where' ); 
-   		// wp_enqueue_script( 'copanel-query_control', get_template_directory_uri() . '/js/query_control.js', array());
-   		// wp_enqueue_script( 'copanel-filter_offset', get_template_directory_uri() . '/js/filter_offset.js', array());
-
+  
    		?>
    		<script>
    			var current_slide = 0;

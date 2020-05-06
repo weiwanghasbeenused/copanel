@@ -2145,7 +2145,10 @@ p.price{
 		background-blend-mode: multiply;
 		transition: background-color .35s;
 	}
-	.hover .product_rec_list .post_list_cate, .hover .product_meta .post_list_cate{
+	.hover .product_rec_list .post_list_cate, 
+	.hover .product_meta .post_list_cate, 
+	.hover .product_list_ctner .post_list_cate
+	{
 		cursor: default;
 	}
 	.hover .post_list_cate:hover{
