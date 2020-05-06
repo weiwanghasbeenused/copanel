@@ -239,15 +239,17 @@ class copanel_product_list_widget extends WP_Widget {
 			  		}else{
 			  			$this_tax_filter['terms'] =  $val;
 			  		}
+			  		if(is_array($this_tax_filter['terms'])){
+			  			foreach($this_tax_filter['terms'] as &$term)
+			  				$term = $term .'_'. $lang_slug;
+			  			unset($term);
+			  		}else{
+			  			$this_tax_filter['terms'] = $this_tax_filter['terms'] .'_'. $lang_slug;
+			  		}
 			  		$tax_filter[] = $this_tax_filter;
+
 		  		}
-		  		if(is_array($this_tax_filter['terms'])){
-		  			foreach($this_tax_filter['terms'] as &$term)
-		  				$term = $term .'_'. $lang_slug;
-		  			unset($term);
-		  		}else{
-		  			$this_tax_filter['terms'] = $this_tax_filter['terms'] .'_'. $lang_slug;
-		  		}
+		  		var_dump($tax_filter);
 		  	}else{
 		  		$url_query_value[$key] = array();
 		  	}
