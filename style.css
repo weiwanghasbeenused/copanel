@@ -1361,6 +1361,11 @@ object {
 }
 
 /* nymap */
+/* ======================================================
+
+hover zone related styles are in images/nymap_hover.svg 
+
+====================================================== */
 
 #nymap_container{
 	display: flex;
@@ -1398,17 +1403,6 @@ object {
 
 .nymap_hover_zone{
 	opacity:0;
-}
-.nymap_layer tspan, .nymap_layer text{
-	pointer-events: none;
-}
-.hover .nymap_hover_zone:hover{
-	transition: opacity .35s;
-	opacity:1;
-	cursor: pointer;
-}
-.hover .nymap_hover_zone:hover + text{
-	fill: #FFF;
 }
 
 .nymap_container .list-group{

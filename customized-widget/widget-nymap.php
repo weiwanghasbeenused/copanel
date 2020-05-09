@@ -38,6 +38,29 @@ $map_green = file_get_contents(__DIR__."/../images/map/nymap-green.svg");
 echo "<div id = 'nymap_container' class = 'concentrated-bo'>";
 echo "<div id = 'nymap'>".$map_base.$map_hover.$map_border.$map_green."</div>";
 echo "</div>";
+
+?>
+<script>
+	function toggle_hover_zone(el, area){
+		var this_area = area;
+		var this_hover_zone = document.getElementById('hover_zone_'+this_area);
+		el.addEventListener('mouseenter', function(){
+			this_hover_zone.classList.add('zone_hovered');
+		});
+		el.addEventListener('mouseout', function(){
+			this_hover_zone.classList.remove('zone_hovered');
+		});
+	}
+	var sMap_link = document.getElementsByClassName('map_link');
+	Array.prototype.forEach.call(sMap_link, function(el, i){
+		var this_area = el.getAttribute('area');
+		if(this_area){
+			toggle_hover_zone(el, this_area);
+		}	
+	});
+</script>
+
+<?php
 }
          
 // Widget Backend 
