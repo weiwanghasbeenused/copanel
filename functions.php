@@ -476,7 +476,7 @@ require_once('customized-widget/widget-nymap.php');
 require_once('customized-widget/widget-copanel_recent_post.php');
 require_once('customized-widget/widget-copanel_product_list.php');
 require_once('customized-widget/widget-copanel_slideshow.php');
-require_once('customized-widget/widget-copanel_questionnaire.php');
+require_once('customized-widget/widget-copanel_post_by_year.php');
 
 /* ==================================================
 			woocommerce

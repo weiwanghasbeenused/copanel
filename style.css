@@ -1226,6 +1226,9 @@ object {
 .entry-header{
 	margin: 50px 0 50px 0;
 }
+.single-post article .entry-header .entry-title{
+	margin: 0 auto;
+}
 .home .entry-header{
 	margin: 0;
 }
