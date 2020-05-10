@@ -1455,6 +1455,9 @@ hover zone related styles are in images/nymap_hover.svg
 .anchor-nav li.active a{
 	color: #fff;
 }
+.map_link{
+	/*display: inline-block;*/
+}
 
 /* archive page */
 body.archive header.page-header{

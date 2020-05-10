@@ -44,16 +44,36 @@ echo "</div>";
 	function toggle_hover_zone(el, area){
 		var this_area = area;
 		var this_hover_zone = document.getElementById('hover_zone_'+this_area);
-		el.addEventListener('mouseenter', function(){
-			this_hover_zone.classList.add('zone_hovered');
-		});
-		el.addEventListener('mouseout', function(){
-			this_hover_zone.classList.remove('zone_hovered');
-		});
+		if(this_area == 'manhattan'){
+			var manhattan_hover_zone = ['upper-east', 'upper-west', 'midtown', 'lower'];
+			for(i = 0 ; i < manhattan_hover_zone.length; i ++){
+				manhattan_hover_zone[i] = document.getElementById('hover_zone_'+manhattan_hover_zone[i]);
+			}
+			console.log(manhattan_hover_zone);
+			el.addEventListener('mouseenter', function(){
+				for(i = 0 ; i < manhattan_hover_zone.length; i ++){
+					manhattan_hover_zone[i].classList.add('zone_hovered');
+				}
+			});
+			el.addEventListener('mouseout', function(){
+				for(i = 0 ; i < manhattan_hover_zone.length; i ++){
+					manhattan_hover_zone[i].classList.remove('zone_hovered');
+				}
+			});
+		}else{
+			el.addEventListener('mouseenter', function(){
+				this_hover_zone.classList.add('zone_hovered');
+			});
+			el.addEventListener('mouseout', function(){
+				this_hover_zone.classList.remove('zone_hovered');
+			});
+		}
+		
 	}
-	var sMap_link = document.getElementsByClassName('map_link');
+	
+	var sMap_link = document.querySelectorAll('.nymap_container .list-group a');
 	Array.prototype.forEach.call(sMap_link, function(el, i){
-		var this_area = el.getAttribute('area');
+		var this_area = el.parentElement.getAttribute('area');
 		if(this_area){
 			toggle_hover_zone(el, this_area);
 		}	
