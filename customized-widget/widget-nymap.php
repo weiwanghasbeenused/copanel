@@ -79,6 +79,18 @@ echo "</div>";
 			toggle_hover_zone(el, this_area);
 		}	
 	});
+
+	var snymap_hover_zone = document.getElementsByClassName('nymap_hover_zone');
+	Array.prototype.forEach.call(snymap_hover_zone, function(el, i){
+		var this_area = el.id.replace('hover_zone_', '');
+		var this_link = document.querySelector('*[area="'+this_area+'"]');
+		this_link = this_link.children[0].getAttribute('href');
+		if(this_link){
+			el.addEventListener('click', function(){
+				location.href = this_link;
+			});
+		}	
+	});
 </script>
 
 <?php
