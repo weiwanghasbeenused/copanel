@@ -43,15 +43,15 @@ class copanel_post_by_year_widget extends WP_Widget {
 	 		$this_query['category__in'] = $cat;
 	 	}
 
-	 	$date_query = array();
-	 	$date_query['after'] = '2019-01-01';
-	 	$date_query['before'] = strtotime('first day of january next year');
-	 	$date_query['inclusive'] = true;
-	 	$this_query['date_query'] = array($date_query);
+	 	// $date_query = array();
+	 	// $date_query['after'] = '2019-01-01';
+	 	// $date_query['before'] = strtotime('first day of january next year');
+	 	// $date_query['inclusive'] = true;
+	 	// $this_query['date_query'] = array($date_query);
 	 	$now_year = 0;
 		$post_list = new WP_Query($this_query);
 		$root_url = get_site_url();
-
+		// echo get_the_date('Y');
 		?><ul class = "post_list_ctner post_list_ctner_<?php echo $list_type; ?>"><?php
 		if($list_type == 'block'){
 			while ( $post_list->have_posts() ){
@@ -61,9 +61,9 @@ class copanel_post_by_year_widget extends WP_Widget {
 				$link = get_the_permalink();
 				$link_thumbnail = get_the_post_thumbnail_url( $this_id, 'large');
 				$title = get_the_title();
-				$this_year = get_the_date('Y');
-				$this_date = get_the_date();
-				var_dump($this_date);
+				$this_year = get_the_date('Y', $this_id);
+				// the_date();
+				// var_dump($this_year);
 				if($this_year != $now_year){
 				?>
 					<h3 id = 'post_list_<? echo $this_year; ?>' class = 'post_list_year post-anchor'><? echo $this_year; ?></h3>
@@ -106,6 +106,13 @@ class copanel_post_by_year_widget extends WP_Widget {
 				$link = get_the_permalink();
 				$link_thumbnail = get_the_post_thumbnail_url( $this_id, 'large');
 				$title = get_the_title();
+				$this_year = get_the_date('Y');
+				if($this_year != $now_year){
+				?>
+					<h3 id = 'post_list_<? echo $this_year; ?>' class = 'post_list_year post-anchor'><? echo $this_year; ?></h3>
+				<?php
+					$now_year = $this_year;
+				}
     	?><li>
     		<a href="<?php echo $link; ?>">
     			<div class = "post_list_image" style = "background-image: url('<?php echo $link_thumbnail ?>')"></div>

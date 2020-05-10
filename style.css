@@ -2036,6 +2036,10 @@ p.price{
 	background-color: var(--main-color);
 	color: #fff;
 }
+.post_list_year{
+	text-align: center;
+	margin-bottom: 1.2em;
+}
 /* media query starts */
 
 /* ~ iphone x */
@@ -2254,16 +2258,28 @@ p.price{
 		position: absolute;
 		left: calc(50% - 50vw + 50px) ;
 		height: 100%;
+
+	}
+	.anchor-nav-ctner_post{
 		width: 30%;
+	}
+	.anchor-nav-ctner_page{
+		width: 75px;
 	}
 	.anchor-nav{
 		position: sticky;
 		display: inline-block;
 		margin: 0;
+
+
 	}
 	.anchor-nav li{
-		text-align: left;
+		border-top: 1px solid var(--main-color);
+		/*text-align: center;*/
 		/*display: inline-block;*/
+	}
+	.anchor-nav li:last-child{
+		border-bottom: 1px solid var(--main-color);
 	}
 	.anchor-nav li a{
 		padding: 15px 15px;

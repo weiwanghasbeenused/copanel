@@ -1,9 +1,10 @@
-function anchor_offset(){
+function anchor_offset(post_type){
 	var sPost_anchor = document.getElementsByClassName('post-anchor');
 	if(sPost_anchor.length != 0){
 		var sPage = document.getElementById('page');
 		var anchor_nav_ctner = document.createElement('div');
 		anchor_nav_ctner.className = 'anchor-nav-ctner';
+		anchor_nav_ctner.classList.add('anchor-nav-ctner_'+post_type);
 		var anchor_nav = document.createElement('ul');
 		var anchor_num = sPost_anchor.length;
 		anchor_nav.className = 'anchor-nav'; 
@@ -23,16 +24,15 @@ function anchor_offset(){
 		var img_loader = new Image();
 		var logoImage = document.querySelector('#logo img');
 
+		var sMasthead = document.getElementById('masthead');
+		var offset = sMasthead.offsetHeight;
+		anchor_nav.style.top = offset-2+'px';
+
 		img_loader.onload = function(){
 			var sMasthead = document.getElementById('masthead');
 			var offset = sMasthead.offsetHeight;
 			anchor_nav.style.top = offset-2+'px';
-			var before = document.querySelectorAll('.post-anchor')
-			for(i = 0 ; i < anchor_num ; i ++){
-				sPost_anchor[i].query
-			}
 		};
-
 		
 		if(sPost_anchor && sPost_anchor.length > 0){
 			var anchor_position = [];
@@ -52,7 +52,6 @@ function anchor_offset(){
 				});
 				var footer = document.querySelector(".footer-meta.post-meta");
 				newAnchor_position.push(entry_content_top + footer.offsetTop);
-				console.log(newAnchor_position);
 				return newAnchor_position;
 			}
 
@@ -96,7 +95,12 @@ function anchor_offset(){
 		img_loader.src = logoImage.src;
 	}
 }
-
 if(!isMobile){
-	anchor_offset();
+	var sBody = document.body;
+	var post_type = '';
+	if(sBody.classList.contains('page'))
+		post_type = 'page';
+	else if(sBody.classList.contains('single'))
+		post_type = 'post';
+	anchor_offset(post_type);
 }
