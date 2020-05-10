@@ -51,6 +51,8 @@ function anchor_offset(post_type){
 					newAnchor_position[i] = entry_content_top + el.offsetTop;
 				});
 				var footer = document.querySelector(".footer-meta.post-meta");
+				if(typeof footer == 'undefined')
+					footer = document.getElementById("colophon");
 				newAnchor_position.push(entry_content_top + footer.offsetTop);
 				return newAnchor_position;
 			}
