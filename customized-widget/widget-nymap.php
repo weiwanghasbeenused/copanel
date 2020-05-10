@@ -49,7 +49,6 @@ echo "</div>";
 			for(i = 0 ; i < manhattan_hover_zone.length; i ++){
 				manhattan_hover_zone[i] = document.getElementById('hover_zone_'+manhattan_hover_zone[i]);
 			}
-			console.log(manhattan_hover_zone);
 			el.addEventListener('mouseenter', function(){
 				for(i = 0 ; i < manhattan_hover_zone.length; i ++){
 					manhattan_hover_zone[i].classList.add('zone_hovered');

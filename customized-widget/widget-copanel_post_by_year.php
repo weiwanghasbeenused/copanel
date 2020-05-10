@@ -62,6 +62,7 @@ class copanel_post_by_year_widget extends WP_Widget {
 				$link_thumbnail = get_the_post_thumbnail_url( $this_id, 'large');
 				$title = get_the_title();
 				$this_year = get_the_date('Y');
+				var_dump($this_year);
 				if($this_year != $now_year){
 				?>
 					<h3 id = 'post_list_<? echo $this_year; ?>' class = 'post_list_year post-anchor'><? echo $this_year; ?></h3>
