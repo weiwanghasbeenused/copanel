@@ -21,17 +21,44 @@ function anchor_offset(post_type){
 		sEntry_content_firstChild = sEntry_content.children[1];
 		sEntry_content.insertBefore(anchor_nav_ctner, sEntry_content_firstChild);
 		entry_content_top = sEntry_content.offsetTop;
+		if(isMobile){
+			var bookmark_toggle = document.createElement('div');
+			bookmark_toggle.setAttribute('id', 'bookmark_toggle');
+			var svg_ns = 'http://www.w3.org/2000/svg';
+			var bookmark_svg = document.createElementNS(svg_ns, 'svg');
+			bookmark_svg.setAttributeNS(null, 'viewBox', '0 0 100 100');
+			var bookmark_polygon = document.createElementNS(svg_ns, 'polygon');
+			bookmark_polygon.setAttribute('points', '78.7,100 50,70 21.3,100 21.3,0 78.7,0 ');
+			bookmark_svg.appendChild(bookmark_polygon);
+			bookmark_toggle.appendChild(bookmark_svg);
+			anchor_nav_ctner.appendChild(bookmark_toggle);
+			bookmark_toggle.addEventListener('click', function(){
+				anchor_nav_ctner.classList.toggle('expanded');
+			});
+			var links = document.querySelectorAll('.anchor-nav a');
+			Array.prototype.forEach.call(links, function(el, i){
+				el.addEventListener('click', function(){
+					anchor_nav_ctner.classList.remove('expanded');
+				});
+			});
+		}
 		var img_loader = new Image();
 		var logoImage = document.querySelector('#logo img');
 
 		var sMasthead = document.getElementById('masthead');
 		var offset = sMasthead.offsetHeight;
-		anchor_nav.style.top = offset-2+'px';
+		if(isMobile)
+			anchor_nav_ctner.style.top = offset-2+'px';
+		else
+			anchor_nav.style.top = offset-2+'px';
 
 		img_loader.onload = function(){
 			var sMasthead = document.getElementById('masthead');
 			var offset = sMasthead.offsetHeight;
-			anchor_nav.style.top = offset-2+'px';
+			if(isMobile)
+				anchor_nav_ctner.style.top = offset-2+'px';
+			else
+				anchor_nav.style.top = offset-2+'px';
 		};
 		
 		if(sPost_anchor && sPost_anchor.length > 0){
@@ -99,9 +126,10 @@ function anchor_offset(post_type){
 			});
 			}
 		img_loader.src = logoImage.src;
+		// if(isMobile)
 	}
 }
-if(!isMobile){
+// if(!isMobile){
 	var sBody = document.body;
 	var post_type = '';
 	if(sBody.classList.contains('page'))
@@ -109,4 +137,4 @@ if(!isMobile){
 	else if(sBody.classList.contains('single'))
 		post_type = 'post';
 	anchor_offset(post_type);
-}
+// }
