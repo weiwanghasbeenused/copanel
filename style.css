@@ -2259,12 +2259,14 @@ p.price{
 		left: calc(50% - 50vw + 50px) ;
 		height: 100%;
 
+
 	}
 	.anchor-nav-ctner_post{
 		width: 30%;
 	}
 	.anchor-nav-ctner_page{
 		width: 75px;
+		top: 0;
 	}
 	.anchor-nav{
 		position: sticky;
