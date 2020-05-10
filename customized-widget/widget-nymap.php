@@ -71,8 +71,7 @@ echo "</div>";
 		
 	}
 	
-	var sMap_link = document.querySelectorAll('.nymap_container .list-group span');
-	console.log(sMap_link);
+	var sMap_link = document.querySelectorAll('.nymap_container .list-group *[area]');
 	Array.prototype.forEach.call(sMap_link, function(el, i){
 		var this_area = el.getAttribute('area');
 		if(this_area){
