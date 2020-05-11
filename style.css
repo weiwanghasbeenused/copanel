@@ -2338,6 +2338,9 @@ p.price{
 	#bookmark_toggle{
 		display: none;
 	}
+	.anchor-nav li:last-child{
+		border-bottom: 1px solid var(--main-color);
+	}
 	.anchor-nav li a{
 		padding: 15px 15px;
 	}
