@@ -129,7 +129,6 @@ p {
 {
 	margin: 2.4em auto 1.2em auto;
 	text-align: center;
-	padding: 0 15%;
 }
 .single-post article h4,
 .single-post article h5,
@@ -137,7 +136,7 @@ p {
 {
 	margin: 3em 0 2.5em 0;
 	text-align: center;
-	padding: 0 15%;
+	padding: 0 10%;
 }
 .single-post .copanel_author h2{
 	margin-top: 0;
@@ -2582,6 +2581,18 @@ p.price{
 		height:100px; /* fixed header height*/
 		margin:-100px 0 0 0; /* negative fixed header height */
 
+	}
+	.single-post article h1,
+	.single-post article h2,
+	.single-post article h3
+	{
+		padding: 0 15%;
+	}
+	.single-post article h4,
+	.single-post article h5,
+	.single-post article h6
+	{
+		padding: 0 15%;
 	}
 }
 /* desktop / laptop */
