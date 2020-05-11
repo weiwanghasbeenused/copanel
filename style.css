@@ -1421,45 +1421,43 @@ hover zone related styles are in images/nymap_hover.svg
 .post-anchor:before {
 	content:"";
 	display:block;
-	height:100px; /* fixed header height*/
-	margin:-100px 0 0 0; /* negative fixed header height */
+	height:150px; /* fixed header height*/
+	margin:-150px 0 0 0; /* negative fixed header height */
 
 }
 .anchor-nav-ctner{
 	position: sticky;
 	overflow: hidden;
 	margin-bottom: 30px;
+	z-index: 500;
 }
 .anchor-nav{
 	width: 100%;
-	/*display: flex;*/
 	background-color: white;
-	padding: 5px 0;
 	list-style: none;
 	margin: 0;
-	padding: 5px 0;
-	/*display: none;*/
-	/*position: absolute;*/
 	transform: translate(0, -240px);
 	margin-bottom: -240px;
 	transition: transform .25s, margin-bottom .25s;
 }
 .anchor-nav-ctner.expanded{
-	padding-bottom: 5px;
 	border-bottom: 1px solid #000;
 	background-color: #fff;
+	padding-bottom: 5px;
 }
 .anchor-nav-ctner.expanded .anchor-nav{
 	transform: translate(0, 0);
 	margin-bottom: 0;
 }
+
 #bookmark_toggle{
 	height: 40px;
 	text-align: center;
-	padding-bottom: 8px;
-	
 	background-color: #fff;
+	padding-top: 8px;
+	padding-bottom: 5px;
 }
+
 #bookmark_toggle > svg{
 	height: 100%;
 }
@@ -1471,10 +1469,31 @@ hover zone related styles are in images/nymap_hover.svg
 	text-align: center;
 	font-size: 1rem;
 	cursor: pointer;
+	border-top: 1px solid var(--main-color);
+}
+.anchor-nav-ctner.expanded .anchor-nav li:last-child{
+	border-bottom: 1px solid var(--main-color);
 }
 .anchor-nav li a{
 	display: block;
 	padding: 15px 0;
+}
+#bg_mask{
+	/*display: none;*/
+	pointer-events: none;
+	width: 100vw;
+	max-width: 100%;
+	height: 100vh;
+	background-color: #000;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	/*z-index: 500;*/
+}
+.masking #bg_mask{
+	opacity: .5;
+	transition: opacity .25s;
 }
 
 .hover .anchor-nav li:hover{
@@ -2146,7 +2165,7 @@ p.price{
 		margin-left: 50px;
 	}
 	.post_list_ctner_block > li .post_list_image, .thumbnail{
-		margin: 20px;
+		margin-bottom: 20px;
 		height: 240px;
 	}
 	.post_list_ctner > li .post_list_excerpt{
@@ -2318,14 +2337,6 @@ p.price{
 	}
 	#bookmark_toggle{
 		display: none;
-	}
-	.anchor-nav li{
-		border-top: 1px solid var(--main-color);
-		/*text-align: center;*/
-		/*display: inline-block;*/
-	}
-	.anchor-nav li:last-child{
-		border-bottom: 1px solid var(--main-color);
 	}
 	.anchor-nav li a{
 		padding: 15px 15px;
@@ -2563,6 +2574,11 @@ p.price{
 	.option:hover{
 		background-color: var(--main-color);
 		color: #fff;
+	}
+	.post-anchor:before {
+		height:100px; /* fixed header height*/
+		margin:-100px 0 0 0; /* negative fixed header height */
+
 	}
 }
 /* desktop / laptop */

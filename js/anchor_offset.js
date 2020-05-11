@@ -22,6 +22,11 @@ function anchor_offset(post_type){
 		sEntry_content.insertBefore(anchor_nav_ctner, sEntry_content_firstChild);
 		entry_content_top = sEntry_content.offsetTop;
 		if(isMobile){
+			var bg_mask = document.createElement('div');
+			bg_mask.setAttribute('id', 'bg_mask');
+			var body = document.body;
+			body.appendChild(bg_mask);
+
 			var bookmark_toggle = document.createElement('div');
 			bookmark_toggle.setAttribute('id', 'bookmark_toggle');
 			var svg_ns = 'http://www.w3.org/2000/svg';
@@ -34,11 +39,13 @@ function anchor_offset(post_type){
 			anchor_nav_ctner.appendChild(bookmark_toggle);
 			bookmark_toggle.addEventListener('click', function(){
 				anchor_nav_ctner.classList.toggle('expanded');
+				body.classList.toggle('masking');
 			});
 			var links = document.querySelectorAll('.anchor-nav a');
 			Array.prototype.forEach.call(links, function(el, i){
 				el.addEventListener('click', function(){
 					anchor_nav_ctner.classList.remove('expanded');
+					body.classList.remove('masking');
 				});
 			});
 		}

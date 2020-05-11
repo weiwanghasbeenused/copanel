@@ -427,11 +427,10 @@ function copanel_cato() {
 		}
 
 		/* translators: used between list items, there is a space after the comma */
-		$tags_list = get_the_tag_list( '', esc_html_x( '', 'list item separator', 'copanel' ) );
-		if ( $tags_list ) {
-			/* translators: 1: list of tags. */
-			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'copanel' ) . '</span>', $tags_list ); // WPCS: XSS OK.
-		}
+		// $tags_list = get_the_tag_list( '', esc_html_x( '', 'list item separator', 'copanel' ) );
+		// if ( $tags_list ) {
+		// 	printf( '<span class="tags-links">' . esc_html__( '%1$s', 'copanel' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+		// }
 	}
 }
 function copanel_entry_footer() {
