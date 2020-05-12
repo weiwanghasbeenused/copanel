@@ -395,10 +395,9 @@ function same_category_products($post_per_page, $displayExcerpts = true){
 		$cate_object = get_the_terms( $post->ID, 'product_cat' );
 
 	$tax_array = array();
-	foreach( $cate_object as $cate ){
-		var_dump($cate);
+	foreach( $cate_object as $cate )
 		$tax_array[] = $cate->slug;
-	}
+	
 	$this_query = array(
 		'post_type'   => $listed_post_type,
 	    'post__not_in'   => array($post->ID),

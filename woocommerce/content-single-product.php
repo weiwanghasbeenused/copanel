@@ -70,8 +70,9 @@ if ( post_password_required() ) {
 	 * @hooked woocommerce_output_related_products - 20
 	 */
 	// do_action( 'woocommerce_after_single_product_summary' );
-	same_category_posts(3, false);
 	same_category_products(3);
+	same_category_posts(3, false);
+	
 	?>
 </div>
 
