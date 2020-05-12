@@ -86,20 +86,21 @@ function anchor_offset(post_type){
 			var contentStable = false;
 			var ticking = false;
 			var current_section = -1;
+			var top_dev = -5;
 
 			function updateAnchorPosition(){
 				sPost_anchor = document.getElementsByClassName('post-anchor');
 				var newAnchor_position = [];
 				Array.prototype.forEach.call(sPost_anchor, function(el, i){
-					newAnchor_position[i] = entry_content_top + el.offsetTop;
+					newAnchor_position[i] = entry_content_top + el.offsetTop + top_dev;
 				});
 				var footer = document.querySelector(".footer-meta.post-meta");
 				if(footer){
-					newAnchor_position.push(entry_content_top + footer.offsetTop);
+					newAnchor_position.push(entry_content_top + footer.offsetTop + top_dev);
 					return newAnchor_position;
 					
 				}else{
-					newAnchor_position.push(entry_content_top + sEntry_content.clientHeight);
+					newAnchor_position.push(entry_content_top + sEntry_content.clientHeight + top_dev);
 					return newAnchor_position;
 				}				
 			}
