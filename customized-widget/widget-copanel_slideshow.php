@@ -30,6 +30,12 @@ class copanel_slideshow_widget extends WP_Widget {
 		$product_slide_num = $instance['product_slide_num'];
 		$slide_interval = $instance['slide_interval'];
 		$first_slide_background_url = isset($instance['background_url']) ? $instance['background_url'] : '';
+		$lang_var = array();
+		$lang_var['zh-TW']['bedroom'] = '臥';
+		$lang_var['zh-CN']['bedroom'] = '臥';
+		$lang_var['en-US']['bedroom'] = ' bedroom(s)';
+
+		$current_lang = get_bloginfo('language');
 		// setting up options of filters;
 		function loadItems( $post_type, $posts_per_page, $paged, $tax_query){
 			$this_query = array(
@@ -42,6 +48,7 @@ class copanel_slideshow_widget extends WP_Widget {
 			return new WP_Query($this_query);
 		}
 		function displaySlideshow ($post_list, $root_url = null, $lang_var = null, $num, $title = '', $des = '', $background_url = ''){
+			global $current_lang;
 			?><div id = "slideshow_ctner">
 				<div id = "slideshow_viewport">
 					<ul>
@@ -58,6 +65,8 @@ class copanel_slideshow_widget extends WP_Widget {
 				$this_id = get_the_ID();
 				$this_title = get_the_title();
 				$this_short_description = get_the_excerpt();
+				$price = number_format(get_post_meta( $this_id, '_price', true ));
+				$bedroom = get_the_terms($this_id, 'pa_bedroom')[0]->name;
 				// $cates = get_the_terms($this_id, 'product_cat');
 				// $price = number_format(get_post_meta( $this_id, '_price', true ));
 				$thumbnail_size = 'large';
@@ -65,6 +74,7 @@ class copanel_slideshow_widget extends WP_Widget {
 				<a href = " <?php the_permalink(); ?>" style = 'background-image: url("<?php echo get_the_post_thumbnail_url( $this_id, $thumbnail_size); ?> ")'>
 					<div class = 'slide_info_ctner'>
 						<h3 class = 'slideshow_title'><?php echo $this_title; ?></h3>
+						<h3 class = 'slideshow_info'><?php echo $bedroom.$lang_var[$current_lang]['bedroom'].'&thinsp;–&thinsp;'.'$'.$price; ?></h3>
 						<p class = 'p-mid'><?php echo $this_short_description; ?></p>
 					</div>
 				</a>
@@ -87,7 +97,7 @@ class copanel_slideshow_widget extends WP_Widget {
 		}
 
 		$post_list = loadItems('product',$product_slide_num, 1, array());
-		displaySlideshow($post_list, null, null, $product_slide_num, $first_slide_title, $first_slide_description, $first_slide_background_url);
+		displaySlideshow($post_list, null, $lang_var, $product_slide_num, $first_slide_title, $first_slide_description, $first_slide_background_url);
 
         wp_reset_postdata();
    		remove_filter( 'posts_where', 'filter_where' ); 

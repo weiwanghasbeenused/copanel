@@ -1936,6 +1936,7 @@ p.price{
 	background-color: rgba(0,0,0,.12);
 	background-blend-mode: multiply;
 }
+
 .hover #slideshow_ctner:hover .slide > a{
 	background-color: var(--main-color);
 	background-blend-mode: multiply;
@@ -1953,6 +1954,10 @@ p.price{
 	white-space:normal; 
 	font-weight: 400;
 	text-align: center;
+}
+#slideshow_ctner .slide .slideshow_info{
+	margin-top: .5em;
+	font-size: 1.2rem;
 }
 
 #slideshow_ctner .slide p{
@@ -2456,6 +2461,10 @@ p.price{
 		/*margin-top: 20vh;*/
 		max-width:80%;  
 		margin: 0 auto;
+	}
+	#slideshow_ctner .slide .slideshow_info{
+		margin-top: .2em;
+		font-size: 2.2rem;
 	}
 	#slideshow_ctner .slide p{
 		text-align:center;
