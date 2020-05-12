@@ -26,7 +26,6 @@ function anchor_offset(post_type){
 			bg_mask.setAttribute('id', 'bg_mask');
 			var body = document.body;
 			body.appendChild(bg_mask);
-
 			var bookmark_toggle = document.createElement('div');
 			bookmark_toggle.setAttribute('id', 'bookmark_toggle');
 			var svg_ns = 'http://www.w3.org/2000/svg';
@@ -36,11 +35,15 @@ function anchor_offset(post_type){
 			bookmark_polygon.setAttribute('points', '78.7,100 50,70 21.3,100 21.3,0 78.7,0 ');
 			bookmark_svg.appendChild(bookmark_polygon);
 			bookmark_toggle.appendChild(bookmark_svg);
-			anchor_nav_ctner.appendChild(bookmark_toggle);
+			sEntry_content.insertBefore(bookmark_toggle, anchor_nav_ctner);
 			bookmark_toggle.addEventListener('click', function(){
-				anchor_nav_ctner.classList.toggle('expanded');
-				body.classList.toggle('masking');
+				if(bookmark_toggle_isFixed){
+					anchor_nav_ctner.classList.toggle('expanded');
+					body.classList.toggle('masking');
+				}
 			});
+			var bookmark_toggle_top = bookmark_toggle.offsetTop + bookmark_toggle.offsetParent.offsetTop;
+			var bookmark_toggle_isFixed = false;
 			var links = document.querySelectorAll('.anchor-nav a');
 			Array.prototype.forEach.call(links, function(el, i){
 				el.addEventListener('click', function(){
@@ -48,14 +51,20 @@ function anchor_offset(post_type){
 					body.classList.remove('masking');
 				});
 			});
+			bg_mask.addEventListener('click', function(){
+				anchor_nav_ctner.classList.remove('expanded');
+				body.classList.remove('masking');
+			});
 		}
 		var img_loader = new Image();
 		var logoImage = document.querySelector('#logo img');
 
 		var sMasthead = document.getElementById('masthead');
 		var offset = sMasthead.offsetHeight;
-		if(isMobile)
-			anchor_nav_ctner.style.top = offset-2+'px';
+		if(isMobile){
+			bookmark_toggle.style.top = offset-2+'px';
+			anchor_nav_ctner.style.top = offset -2 +bookmark_toggle.clientHeight+'px';
+		}
 		else
 			anchor_nav.style.top = offset-2+'px';
 
@@ -63,7 +72,7 @@ function anchor_offset(post_type){
 			var sMasthead = document.getElementById('masthead');
 			var offset = sMasthead.offsetHeight;
 			if(isMobile)
-				anchor_nav_ctner.style.top = offset-2+'px';
+				bookmark_toggle.style.top = offset-2+'px';
 			else
 				anchor_nav.style.top = offset-2+'px';
 		};
@@ -106,7 +115,6 @@ function anchor_offset(post_type){
 			    		}else{
 			    			anchor_position = updateAnchorPosition();
 			    		}
-			    		// anchor_position = updateAnchorPosition();
 			    		if(sTop < anchor_position[0] || sTop > anchor_position[anchor_position.length-1]){
 			    			var sActive = document.querySelector('.anchor-nav > li.active');
 			    			if(sActive)
@@ -124,6 +132,16 @@ function anchor_offset(post_type){
 				    			}
 				    		}
 			    		}
+			    		if(isMobile){
+			    			if(sTop > bookmark_toggle_top && !bookmark_toggle_isFixed ){
+				    			bookmark_toggle_isFixed = true;
+				    		}else if(sTop <= bookmark_toggle_top && bookmark_toggle_isFixed ){
+				    			bookmark_toggle_isFixed = false;
+				    			anchor_nav_ctner.classList.remove('expanded');
+								body.classList.remove('masking');
+				    		}
+			    		}
+				    		
 
 				      	ticking = false;
 				    });
