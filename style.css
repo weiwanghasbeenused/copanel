@@ -1779,7 +1779,7 @@ button:focus, input:focus{
 
 }
 .flex-control-thumbs li {
-	width: 100px;
+	width: 35px;
 	float: left;
 	margin: 0;
 	list-style: none;
@@ -1799,7 +1799,7 @@ button:focus, input:focus{
 }
 .gallery_image_holder{
 	display: block;
-	height: 60vh;
+	height: 50vh;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -2619,6 +2619,9 @@ p.price{
 	.single-post article h6
 	{
 		padding: 0 15%;
+	}
+	.flex-control-thumbs li {
+		width: 70px;
 	}
 }
 /* desktop / laptop */
