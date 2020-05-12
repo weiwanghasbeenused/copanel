@@ -312,8 +312,6 @@ function get_post_list($arr, $listed_post_type, $list_type = 'block', $displayEx
 	global $current_lang;
 
 	$post_list = new WP_Query($arr);
-	var_dump($post_list);
-	// die();
 	$root_url = get_site_url();
 
 	$lang_var['zh-TW']['post'] = '相關文章';
@@ -398,7 +396,8 @@ function same_category_products($post_per_page, $displayExcerpts = true){
 
 	$tax_array = array();
 	foreach( $cate_object as $cate ){
-		$tax_array[] = $cate->name;
+		var_dump($cate);
+		$tax_array[] = $cate->slug;
 	}
 	$this_query = array(
 		'post_type'   => $listed_post_type,
@@ -407,7 +406,7 @@ function same_category_products($post_per_page, $displayExcerpts = true){
 	    'tax_query' => array(
 	    	array(
 	    		'taxonomy' => 'product_cat',
-	            'field' => 'name',
+	            'field' => 'slug',
 	            'terms' => $tax_array
 	    	),
 	    )
