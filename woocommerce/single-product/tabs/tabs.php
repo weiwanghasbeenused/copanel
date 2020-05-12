@@ -30,7 +30,7 @@ $product_tabs = apply_filters( 'woocommerce_product_tabs', array() );
 
 if ( ! empty( $product_tabs ) ) : ?>
 
-	<div class="woocommerce-tabs wc-tabs-wrapper concentrated-box">
+	<div class="woocommerce-tabs wc-tabs-wrapper">
 		<ul class="tabs wc-tabs" role="tablist">
 			<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
 				<li class="<?php echo esc_attr( $key ); ?>_tab" id="tab-title-<?php echo esc_attr( $key ); ?>" role="tab" aria-controls="tab-<?php echo esc_attr( $key ); ?>">
@@ -40,17 +40,30 @@ if ( ! empty( $product_tabs ) ) : ?>
 				</li>
 			<?php endforeach; ?>
 		</ul>
-		<?php foreach ( $product_tabs as $key => $product_tab ) : ?>
-			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( $key ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( $key ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( $key ); ?>">
+		<?php 
+		// foreach ( $product_tabs as $key => $product_tab ) : 
+			?>
+			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( 'additional_information' ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( 'additional_information' ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( 'additional_information' ); ?>">
 				<?php
-				if ( isset( $product_tab['callback'] ) ) {
-					call_user_func( $product_tab['callback'], $key, $product_tab );
+				if ( isset( $product_tabs['additional_information']['callback'] ) ) {
+					call_user_func( $product_tabs['additional_information']['callback'], 'additional_information', $product_tabs['additional_information'] );
 				}
 				?>
 			</div>
-		<?php endforeach; ?>
+			<div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--<?php echo esc_attr( 'description' ); ?> panel entry-content wc-tab" id="tab-<?php echo esc_attr( 'description' ); ?>" role="tabpanel" aria-labelledby="tab-title-<?php echo esc_attr( 'description' ); ?>">
+				<?php
+				if ( isset( $product_tabs['description']['callback'] ) ) {
+					call_user_func( $product_tabs['description']['callback'], 'description', $product_tabs['description'] );
+				}
+				?>
+			</div>
+		<?php 
+	// endforeach; 
+	?>
 
-		<?php do_action( 'woocommerce_product_after_tabs' ); ?>
+		<?php 
+		do_action( 'woocommerce_product_after_tabs' ); 
+		?>
 	</div>
 
 <?php endif; ?>

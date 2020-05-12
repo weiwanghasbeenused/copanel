@@ -38,6 +38,7 @@ if ( post_password_required() ) {
 	 * @hooked woocommerce_show_product_sale_flash - 10
 	 * @hooked woocommerce_show_product_images - 20
 	 */
+
 	do_action( 'woocommerce_before_single_product_summary' );
 	?>
 
@@ -55,6 +56,7 @@ if ( post_password_required() ) {
 		 * @hooked woocommerce_template_single_sharing - 50
 		 * @hooked WC_Structured_Data::generate_product_data() - 60
 		 */
+		add_action('woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 45);
 		do_action( 'woocommerce_single_product_summary' );
 		?>
 	</div>
@@ -67,7 +69,7 @@ if ( post_password_required() ) {
 	 * @hooked woocommerce_upsell_display - 15
 	 * @hooked woocommerce_output_related_products - 20
 	 */
-	do_action( 'woocommerce_after_single_product_summary' );
+	// do_action( 'woocommerce_after_single_product_summary' );
 	same_category_posts(3, false);
 	same_category_products(3);
 	?>

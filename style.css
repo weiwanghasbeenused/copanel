@@ -1818,16 +1818,13 @@ button:focus, input:focus{
 .woocommerce-Tabs-panel--additional_information{
 	display:block !important;
 }
-.woocommerce-Tabs-panel{
-	margin-top: 25px;
+#tab-additional_information{
+	margin-top: 20px;
 }
-.woocommerce-Tabs-panel h2{
-	font-size: 1.5rem;
-	text-align: center;
-	display: none;
-}
-.woocommerce-Tabs-panel h2 + p{
-	margin-top: 25px;
+#tab-description{
+	margin-top: 35px;
+	padding-top: 35px;
+	border-top: 1px solid #000;
 }
 .woocommerce-Tabs-panel--description p{
 	font-size: 1.2rem;
