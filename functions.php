@@ -312,6 +312,8 @@ function get_post_list($arr, $listed_post_type, $list_type = 'block', $displayEx
 	global $current_lang;
 
 	$post_list = new WP_Query($arr);
+	var_dump($post_list);
+	// die();
 	$root_url = get_site_url();
 
 	$lang_var['zh-TW']['post'] = '相關文章';

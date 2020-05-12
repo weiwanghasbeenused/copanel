@@ -69,7 +69,7 @@ class copanel_slideshow_widget extends WP_Widget {
 				$bedroom = get_the_terms($this_id, 'pa_bedroom')[0]->name;
 				// $cates = get_the_terms($this_id, 'product_cat');
 				// $price = number_format(get_post_meta( $this_id, '_price', true ));
-				$thumbnail_size = 'large';
+				$thumbnail_size = 'full';
 			?></li><li class = 'slide'>
 				<a href = " <?php the_permalink(); ?>" style = 'background-image: url("<?php echo get_the_post_thumbnail_url( $this_id, $thumbnail_size); ?> ")'>
 					<div class = 'slide_info_ctner'>
