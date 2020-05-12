@@ -357,29 +357,29 @@ function same_category_posts($post_per_page = 3, $displayExcerpts = true){
 	global $post;
 	$this_post_type = get_post_type();
 	$listed_post_type = 'post';
-	$cat_array = array();
-	if($this_post_type == 'post'){
+
+	if($this_post_type == 'post')
 		$cate_object = get_the_category();
-		foreach( $cate_object as $cate ){
-			$cat_array[] = $cate->term_id;
-		}
-	}
-	elseif($this_post_type == 'product'){
+	elseif($this_post_type == 'product')
 		$cate_object = get_the_terms( $post->ID, 'product_cat' );
-		foreach( $cate_object as $cate ){
-			$thisCatName = $cate->name;
-			$thisCat = get_cat_ID($thisCatName);
-			if($thisCat && $thisCat !== 0)
-				$cat_array[] = $thisCat;
-		}
-	}
-	if(!empty($cat_array)){
+
+	$tax_array = array();
+	foreach( $cate_object as $cate )
+		$tax_array[] = $cate->slug;
+
+	if(!empty($tax_array)){
 		$this_query = array(
 			'post_type'   => 'post',
-		    'category__in'   => $cat_array,
 		    'post__not_in'   => array($post->ID),
 		    'post_status' => 'publish',
-		    'posts_per_page' => $post_per_page
+		    'posts_per_page' => $post_per_page,
+		    'tax_query' => array(
+		    	array(
+		    		'taxonomy' => 'category',
+		            'field' => 'slug',
+		            'terms' => $tax_array
+		    	)
+		    )
 		);
 		get_post_list($this_query, $listed_post_type, 'block', $displayExcerpts);
 	}
@@ -397,20 +397,21 @@ function same_category_products($post_per_page, $displayExcerpts = true){
 	$tax_array = array();
 	foreach( $cate_object as $cate )
 		$tax_array[] = $cate->slug;
-	
-	$this_query = array(
-		'post_type'   => $listed_post_type,
-	    'post__not_in'   => array($post->ID),
-	    'posts_per_page' => $post_per_page,
-	    'tax_query' => array(
-	    	array(
-	    		'taxonomy' => 'product_cat',
-	            'field' => 'slug',
-	            'terms' => $tax_array
-	    	),
-	    )
-	);
-	get_post_list($this_query, $listed_post_type, 'block', $displayExcerpts);
+	if(!empty($tax_array)){
+		$this_query = array(
+			'post_type'   => $listed_post_type,
+		    'post__not_in'   => array($post->ID),
+		    'posts_per_page' => $post_per_page,
+		    'tax_query' => array(
+		    	array(
+		    		'taxonomy' => 'product_cat',
+		            'field' => 'slug',
+		            'terms' => $tax_array
+		    	)
+		    )
+		);
+		get_post_list($this_query, $listed_post_type, 'block', $displayExcerpts);
+	}
 }
 
 function copanel_cato() {
