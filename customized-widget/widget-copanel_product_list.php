@@ -90,7 +90,7 @@ class copanel_product_list_widget extends WP_Widget {
 					$filter_var[$thisAttr]["options"][0] = range($min_val, $max_val);
 					$filter_var[$thisAttr]["options"][1] = $filter_var[$thisAttr]["options"][0];					
 					array_pop($filter_var[$thisAttr]["options"][0]);
-					array_shift($filter_var[$thisAttr]["options"][1]);
+					// array_shift($filter_var[$thisAttr]["options"][1]);
 					array_unshift($filter_var[$thisAttr]["options"][0], 'no minimum');
 					array_unshift($filter_var[$thisAttr]["options"][1], 'no maximum');
 					
@@ -387,7 +387,10 @@ class copanel_product_list_widget extends WP_Widget {
 		 								}elseif(!is_numeric($f)){
 		 									$f_display = $lang_var[$current_lang][$f];
 		 								}else{
-		 									$f_display = $f;
+		 									if($key == 0)
+		 										$f_display = $f.'+';
+		 									else
+		 										$f_display = $f;
 		 								}
 		 								$selected = ( $f === intval($thisValue) ) ? 'selected' : '';
 		 								if(is_numeric($f)){
@@ -434,7 +437,7 @@ class copanel_product_list_widget extends WP_Widget {
 	            'current' => $current_page,
 	            'total' => $total_pages,
 	            'prev_text'    => __('&larr;'),
-	            'next_text'    => __('&rarr;'),
+	            'next_text'    => __('&rarr;')
 	        ));
 	        echo '</div>';
 	    }
