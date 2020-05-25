@@ -1155,7 +1155,10 @@ object {
 .home .entry-content h2 + h5{
 	margin: -25px 0 50px 0;
 }
-
+.home .entry-content .home-intro h2{
+	margin: 75px 0 25px 0;
+	text-align: center;
+}
 
 
 /* nav bar */
@@ -1197,9 +1200,6 @@ object {
 .home-intro .intro-contact{
 	padding-top:30px;
 	margin-top:30px;
-}
-.home-intro h2{
-	margin-bottom: 25px;
 }
 .p-mid p, .p-mid{
 	font-size: 1rem;
