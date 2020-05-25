@@ -1329,7 +1329,7 @@ object {
 }
 .post_list_ctner > li, .product_list_ctner > li{
 	display: block;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 }
 .post_list_ctner > li:last-of-type{
 	margin-bottom: 0;
@@ -1349,6 +1349,7 @@ object {
 .post_list_cate{
 	display: inline-block;
 	margin-right: 10px;
+	margin-bottom: 10px;
 	padding: 3px 6px;
 	border: 1px solid #000;
 	color: #000;
@@ -2127,6 +2128,11 @@ p.price{
 	padding-bottom: .8em;
 	border-bottom: 1px solid #000;
 }
+
+.post_list_ctner_block > li .post_list_image, .thumbnail{
+	margin-bottom: 10px;
+}
+
 /* media query starts */
 
 /* ~ iphone x */
@@ -2183,6 +2189,7 @@ p.price{
 	/* list - post  */
 	.post_list_ctner > li, .product_list_ctner > li{
 		vertical-align: top;
+		margin-bottom: 50px;
 	}
 	
 	.post_list_ctner_block>li{
@@ -2226,6 +2233,9 @@ p.price{
 	}
 	.post_list_ctner_row > li .post_list_categories{
 		flex:1;
+	}
+	.post_list_cate{
+		margin-bottom: 0;
 	}
 	.post_list_ctner_row h5{
 		font-size: 1.75rem;
