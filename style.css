@@ -1698,6 +1698,7 @@ body.archive header.page-header .p-mid{
 #house_list_form_reset{
 	width: 140px;
 	margin: 0 auto;
+	margin-top: 10px;
 }
 #house_list_form_reset button{
 	border: 1px solid #bbb;
