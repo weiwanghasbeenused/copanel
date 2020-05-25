@@ -377,7 +377,7 @@ class copanel_product_list_widget extends WP_Widget {
 			        				$thisValue = $url_query_value[$field][$key];
 			        			}				 						
 		 						if($key != 0){
-		 							?><span class = 'filter_dash'>&mdash;</span><?php
+		 							?><br><span class = 'filter_dash'>&mdash;</span><?php
 		 						}
 								?>
 		 						<select id = "" class = "house_list_filter select_ctner <?php echo ($active) ? 'active' : ''  ?>" name = "<?php echo $field; ?>[]">
