@@ -1607,7 +1607,7 @@ body.archive header.page-header .p-mid{
 #filter_ctner{
 	margin: 50px 0;
 	/*padding-top: 25px;*/
-	border-top: 1px solid #000;
+	
 	background-color: white;
     position: sticky;
     transition: transform .35s;
@@ -1718,6 +1718,7 @@ body.archive header.page-header .p-mid{
 button:focus, input:focus{
 	outline: none;
 }
+
 #filter_form_ctner{
 	position: fixed;
 	top:0;
@@ -1730,7 +1731,7 @@ button:focus, input:focus{
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity .35s;
-	padding: 40px 25px 60px 25px;
+	padding: 100px 25px 80px 25px;
 	text-align: center;
 	overflow: scroll;
 }
@@ -2299,6 +2300,7 @@ p.price{
 		pointer-events: initial;
 		overflow: visible;
 		text-align: left;
+		padding: 40px 25px 60px 25px;
 	}
 	#filter_leave_btn{
 		display: none;
@@ -2397,6 +2399,9 @@ p.price{
 	}
 	#filter_expand_btn .filter_btn_bar:last-child{
 		margin-bottom: 0;
+	}
+	#filter_ctner{
+		border-top: 1px solid #000;
 	}
 	#filter_ctner.folded #filter_expand_btn{
 		transform: translate(-50%, 100%);
@@ -2591,7 +2596,7 @@ p.price{
 		padding-right: 25px;
 	}
 	.home-intro{
-		margin-top: 100px;
+		margin-top: 75px;
 	}
 	.home-intro .intro-contact{
 		border-top: 1px solid #000;
