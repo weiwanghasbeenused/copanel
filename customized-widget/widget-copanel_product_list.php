@@ -29,7 +29,11 @@ class copanel_product_list_widget extends WP_Widget {
 		global $current_lang;
 		global $filter_var_list;
 		global $wpdb;
-		$isRental = $instance['isRental'];
+
+		$isRental = isset($instance['isRental']) ? $instance['isRental'] : false;
+		$posts_per_page = isset($instance['posts_per_page']) ? intval($instance['posts_per_page']) : 12;
+		$lang_slug = strtolower($current_lang);
+		
 		// $max_price = get_variation_price('max');
 		$house_list_url = get_permalink();
 		
@@ -52,7 +56,7 @@ class copanel_product_list_widget extends WP_Widget {
 			$all_query = array(
 				'fields' => 'ids',
 				'post_type' => 'product',
-				'product_tag' => 'rental'
+				'product_tag' => 'rental_'.$lang_slug
 			);
 		}
 		else
@@ -60,7 +64,7 @@ class copanel_product_list_widget extends WP_Widget {
 			$all_query = array(
 				'fields' => 'ids',
 				'post_type' => 'product',
-				'product_tag' => 'buy'
+				'product_tag' => 'buy_'.$lang_slug
 			);
 		}
 		$all_items = new WP_Query($all_query);
@@ -248,7 +252,7 @@ class copanel_product_list_widget extends WP_Widget {
 		$tax_filter = array();
 		$tax_filter['relation'] = 'AND';
 		$meta_query = array();
-		$lang_slug = strtolower($current_lang);
+		
 		// $lang_slug = '';
 		// getting query from url
 		foreach ($filter_var_list as $fvl) {
@@ -320,7 +324,7 @@ class copanel_product_list_widget extends WP_Widget {
 		  	}
 		}
 		$tag = array();
-		$tag[] = $isRental ? 'rental'.'_'. $lang_slug : 'buy'.'_'. $lang_slug;
+		$tag[] = $isRental ? 'rental_'. $lang_slug : 'buy_'. $lang_slug;
 
 		function loadItems( $post_type, $posts_per_page, $paged, $meta_query, $tax_query, $tag){
 			$this_query = array(
@@ -387,7 +391,7 @@ class copanel_product_list_widget extends WP_Widget {
 		
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$post_list = loadItems('product', 4, $paged, $meta_query, $tax_filter, $tag);
+		$post_list = loadItems('product', $posts_per_page, $paged, $meta_query, $tax_filter, $tag);
 		$root_url = get_site_url();
 		?>
 		<div id = "filter_ctner">
@@ -522,13 +526,20 @@ class copanel_product_list_widget extends WP_Widget {
 	// Widget Backend 
 	public function form( $instance ) {
 		if ( isset( $instance[ 'title' ] ) ) {
-		$title = $instance[ 'title' ];
+			$title = $instance[ 'title' ];
 		}
 		else {
-		$title = __( '', 'copanel_product_list_widget_domain' );
+			$title = __( '', 'copanel_product_list_widget_domain' );
 		}
 
-		if ( isset( $instance[ 'title' ] ) ) {
+		if ( isset( $instance[ 'posts_per_page' ] ) ) {
+			$posts_per_page = $instance[ 'posts_per_page' ];
+		}
+		else {
+			$posts_per_page = '12';
+		}
+
+		if ( isset( $instance[ 'isRental' ] ) ) {
 		$isRental = $instance[ 'isRental' ];
 		}
 		else {
@@ -543,6 +554,10 @@ class copanel_product_list_widget extends WP_Widget {
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />	
 		</p>
 		<p>
+		<label for="<?php echo $this->get_field_id( 'posts_per_page' ); ?>">Posts_per_page</label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'posts_per_page' ); ?>" name="<?php echo $this->get_field_name( 'posts_per_page' ); ?>" type="text" value="<?php echo esc_attr( $posts_per_page ); ?>" />	
+		</p>
+		<p>
 		<label for="<?php echo $this->get_field_id( 'isRental' ); ?>"><?php echo 'is rental?'; ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'isRental' ); ?>" name="<?php echo $this->get_field_name( 'isRental' ); ?>" type="checkbox" <? echo $isRental ? 'checked' : ''; ?> value="true" />	
 		</p>
@@ -552,9 +567,8 @@ class copanel_product_list_widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['posts_per_page'] = ( ! empty( $new_instance['posts_per_page'] ) ) ? strip_tags( $new_instance['posts_per_page'] ) : '12';
 		$instance['isRental'] = ( ! empty( $new_instance['isRental'] ) ) ? strip_tags( $new_instance['isRental'] ) : false;
-		var_dump($instance['isRental']);
-		die();
 		return $instance;
 	}
 } // Class nymap_widget ends here
