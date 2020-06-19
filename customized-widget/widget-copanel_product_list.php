@@ -33,7 +33,6 @@ class copanel_product_list_widget extends WP_Widget {
 		$isRental = isset($instance['isRental']) ? $instance['isRental'] : false;
 		$posts_per_page = isset($instance['posts_per_page']) ? intval($instance['posts_per_page']) : 12;
 		$lang_slug = strtolower($current_lang);
-		
 		// $max_price = get_variation_price('max');
 		$house_list_url = get_permalink();
 		
@@ -67,6 +66,7 @@ class copanel_product_list_widget extends WP_Widget {
 				'product_tag' => 'buy_'.$lang_slug
 			);
 		}
+
 		$all_items = new WP_Query($all_query);
 		
 		// setting up options in filters;
@@ -142,20 +142,22 @@ class copanel_product_list_widget extends WP_Widget {
 			}else{
 				$this_tax = 'pa_'.$thisAttr;
 				$thisAttrOptions = array();
+				$i = 0;
 				if($all_items->have_posts()){
 					while ( $all_items->have_posts() ){
 						$all_items->the_post();
 						$this_id = get_the_ID();
-						$thisAttrOptions[] = wp_get_post_terms($this_id, $this_tax)[0];
+						$thisAttrOptions[wp_get_post_terms($this_id, $this_tax)[0]->name] = $i;
+						$i++;
 					}
 				}
 				wp_reset_postdata();
+				$thisAttrOptions = array_flip($thisAttrOptions);
 				$thisAttrOptions = array_values($thisAttrOptions);
-
 				if($filter_var[$thisAttr]["input-type"] == "select"){
 					// key '0' for min, key '1' for max;
 					foreach($thisAttrOptions as $thisAttrOption)
-						$filter_var[$thisAttr]["options"][0][] = intval($thisAttrOption->name);
+						$filter_var[$thisAttr]["options"][0][] = intval($thisAttrOption);
 					$max_val = max($filter_var[$thisAttr]["options"][0]);
 					$min_val = min($filter_var[$thisAttr]["options"][0]);
 					$filter_var[$thisAttr]["options"][0] = range($min_val, $max_val);
@@ -167,7 +169,7 @@ class copanel_product_list_widget extends WP_Widget {
 				}
 				else{
 					foreach($thisAttrOptions as $thisAttrOption){
-						$filter_var[$thisAttr]["options"][] = $thisAttrOption->name;
+						$filter_var[$thisAttr]["options"][] = $thisAttrOption;
 					}
 				}
 			}
