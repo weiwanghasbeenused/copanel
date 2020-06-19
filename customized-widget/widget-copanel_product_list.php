@@ -28,7 +28,8 @@ class copanel_product_list_widget extends WP_Widget {
 		global $woocommerce;
 		global $current_lang;
 		global $filter_var_list;
-
+		global $wpdb;
+		$isRental = $instance['isRental'];
 		// $max_price = get_variation_price('max');
 		$house_list_url = get_permalink();
 		
@@ -39,28 +40,84 @@ class copanel_product_list_widget extends WP_Widget {
 		$filter_var["bedroom"]["input-type"] = "select";
 		$filter_var["bathroom"]["input-type"] = "select";
 		$filter_var["area"]["input-type"] = "checkbox";
-		$filter_var["housing-type"]["input-type"] = "checkbox";
 		$filter_var["price"]["input-type"] = "select";
 
+		if($isRental)
+			unset($filter_var["housing-type"]);
+		else
+			$filter_var["housing-type"]["input-type"] = "checkbox";
+
+		
+		if($isRental){
+			$all_query = array(
+				'fields' => 'ids',
+				'post_type' => 'product',
+				'product_tag' => 'rental'
+			);
+		}
+		else
+		{
+			$all_query = array(
+				'fields' => 'ids',
+				'post_type' => 'product',
+				'product_tag' => 'buy'
+			);
+		}
+		$all_items = new WP_Query($all_query);
+		
 		// setting up options in filters;
 		foreach($filter_var_list as $fvl){
 			$thisAttr = $fvl;
 			$attr_list[] = $thisAttr;
 			if($fvl == 'price'){
 				// using wpdb to get all values of a certain meta key
-				global $wpdb;
+				
+				if($isRental){
+					// $priceOption = $wpdb->get_col( $wpdb->prepare( "
+				 //        SELECT pm.meta_value FROM {$wpdb->postmeta} pm
+				 //        LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+				 //        LEFT JOIN {$wpdb->term_relationships} AS t_rel ON (p.ID = t_rel.object_id)
+     //           			LEFT JOIN {$wpdb->term_taxonomy} AS t_tax ON (t_rel.term_taxonomy_id = t_tax.term_taxonomy_id)
+     //            		LEFT JOIN {$wpdb->terms} AS t ON (t.term_id = t_tax.term_id)
+				 //        WHERE pm.meta_key = %s 
+				 //        AND p.post_status = %s 
+				 //        AND p.post_type = %s 
+				 //        AND t.name LIKE %s
+				 //    ", '_price', 'publish', 'product', '%'.$wpdb->esc_like('rental'.'_'. $lang_slug;).'%' ) );
 
-			    $priceOption = $wpdb->get_col( $wpdb->prepare( "
-			        SELECT pm.meta_value FROM {$wpdb->postmeta} pm
-			        LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
-			        WHERE pm.meta_key = %s 
-			        AND p.post_status = %s 
-			        AND p.post_type = %s
-			    ", '_price', 'publish', 'product' ) );
+
+				    $interval = 500;
+				}
+				else
+				{
+					// $priceOption = $wpdb->get_col( $wpdb->prepare( "
+				 //        SELECT pm.meta_value FROM {$wpdb->postmeta} pm
+				 //        LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id
+				 //        LEFT JOIN {$wpdb->term_relationships} AS t_rel ON (p.ID = t_rel.object_id)
+     //           			LEFT JOIN {$wpdb->term_taxonomy} AS t_tax ON (t_rel.term_taxonomy_id = t_tax.term_taxonomy_id)
+     //            		LEFT JOIN {$wpdb->terms} AS t ON (t.term_id = t_tax.term_id)
+				 //        WHERE pm.meta_key = %s 
+				 //        AND p.post_status = %s 
+				 //        AND p.post_type = %s 
+				 //        AND t.name LIKE %s
+				 //    ", '_price', 'publish', 'product', '%'.$wpdb->esc_like('buy').'%' ) );
+
+				    $interval = 100000;
+				}
+
+				$priceOption = array();
+				if($all_items->have_posts()){
+					while ( $all_items->have_posts() ){
+						$all_items->the_post();
+						$this_id = get_the_ID();
+						$priceOption[] = get_post_meta($this_id, '_price')[0];
+					}
+				}
+				wp_reset_postdata();
 			    foreach ($priceOption as &$po)
 			    	$po = intval($po); 
-
-			    $interval = 100000;
+			    unset($po);
+			    
 			    $max_price = max($priceOption);
 			    $min_price = min($priceOption);
 			    if($max_price % $interval != 0)
@@ -79,7 +136,17 @@ class copanel_product_list_widget extends WP_Widget {
 				array_unshift($filter_var[$thisAttr]["options"][1], 'no maximum');
 
 			}else{
-				$thisAttrOptions = get_terms('pa_'.$thisAttr);
+				$this_tax = 'pa_'.$thisAttr;
+				$thisAttrOptions = array();
+				if($all_items->have_posts()){
+					while ( $all_items->have_posts() ){
+						$all_items->the_post();
+						$this_id = get_the_ID();
+						$thisAttrOptions[] = wp_get_post_terms($this_id, $this_tax)[0];
+					}
+				}
+				wp_reset_postdata();
+				$thisAttrOptions = array_values($thisAttrOptions);
 
 				if($filter_var[$thisAttr]["input-type"] == "select"){
 					// key '0' for min, key '1' for max;
@@ -88,9 +155,8 @@ class copanel_product_list_widget extends WP_Widget {
 					$max_val = max($filter_var[$thisAttr]["options"][0]);
 					$min_val = min($filter_var[$thisAttr]["options"][0]);
 					$filter_var[$thisAttr]["options"][0] = range($min_val, $max_val);
-					$filter_var[$thisAttr]["options"][1] = $filter_var[$thisAttr]["options"][0];					
+					$filter_var[$thisAttr]["options"][1] = $filter_var[$thisAttr]["options"][0];
 					array_pop($filter_var[$thisAttr]["options"][0]);
-					// array_shift($filter_var[$thisAttr]["options"][1]);
 					array_unshift($filter_var[$thisAttr]["options"][0], 'no minimum');
 					array_unshift($filter_var[$thisAttr]["options"][1], 'no maximum');
 					
@@ -253,15 +319,18 @@ class copanel_product_list_widget extends WP_Widget {
 		  		$url_query_value[$key] = array();
 		  	}
 		}
+		$tag = array();
+		$tag[] = $isRental ? 'rental'.'_'. $lang_slug : 'buy'.'_'. $lang_slug;
 
-		function loadItems( $post_type, $posts_per_page, $paged, $meta_query, $tax_query){
+		function loadItems( $post_type, $posts_per_page, $paged, $meta_query, $tax_query, $tag){
 			$this_query = array(
 				'fields' => 'ids',
 				'post_type' => $post_type,
 				'posts_per_page' => $posts_per_page,
 				'paged' => $paged,
 				'meta_query' => $meta_query,
-				'tax_query' => $tax_query
+				'tax_query' => $tax_query,
+				'product_tag' => $tag
 			);
 			return new WP_Query($this_query);
 		}
@@ -271,6 +340,7 @@ class copanel_product_list_widget extends WP_Widget {
 			<?php
 			if($post_list->have_posts()){
 			while ( $post_list->have_posts() ){
+
 				$post_list->the_post();
 				$this_id = get_the_ID();
 				$cates = get_the_terms($this_id, 'product_cat');
@@ -317,7 +387,7 @@ class copanel_product_list_widget extends WP_Widget {
 		
 		$paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$post_list = loadItems('product', 4, $paged, $meta_query, $tax_filter);
+		$post_list = loadItems('product', 4, $paged, $meta_query, $tax_filter, $tag);
 		$root_url = get_site_url();
 		?>
 		<div id = "filter_ctner">
@@ -458,6 +528,13 @@ class copanel_product_list_widget extends WP_Widget {
 		$title = __( '', 'copanel_product_list_widget_domain' );
 		}
 
+		if ( isset( $instance[ 'title' ] ) ) {
+		$isRental = $instance[ 'isRental' ];
+		}
+		else {
+		$isRental = false;
+		}
+
 	// Widget admin form
 		?>
 		<p style = 'color:red;'>!!! nothing to change here !!!</p>
@@ -465,12 +542,19 @@ class copanel_product_list_widget extends WP_Widget {
 		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />	
 		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id( 'isRental' ); ?>"><?php echo 'is rental?'; ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'isRental' ); ?>" name="<?php echo $this->get_field_name( 'isRental' ); ?>" type="checkbox" <? echo $isRental ? 'checked' : ''; ?> value="true" />	
+		</p>
 		<?php 
 	}  
 	// Updating widget replacing old instances with new
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['isRental'] = ( ! empty( $new_instance['isRental'] ) ) ? strip_tags( $new_instance['isRental'] ) : false;
+		var_dump($instance['isRental']);
+		die();
 		return $instance;
 	}
 } // Class nymap_widget ends here
