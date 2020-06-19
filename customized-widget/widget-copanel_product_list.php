@@ -68,7 +68,10 @@ class copanel_product_list_widget extends WP_Widget {
 		}
 
 		$all_items = new WP_Query($all_query);
-		
+		if(!$all_items->have_posts()){
+			echo "<h4 style = 'text-align: center'>coming soon</h4>";
+			return false;
+		}
 		// setting up options in filters;
 		foreach($filter_var_list as $fvl){
 			$thisAttr = $fvl;
