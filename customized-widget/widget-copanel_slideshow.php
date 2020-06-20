@@ -36,14 +36,16 @@ class copanel_slideshow_widget extends WP_Widget {
 		$lang_var['en-US']['bedroom'] = ' bedroom(s)';
 
 		$current_lang = get_bloginfo('language');
+		$lang_slug = strtolower($current_lang);
 		// setting up options of filters;
-		function loadItems( $post_type, $posts_per_page, $paged, $tax_query){
+		function loadItems( $post_type, $posts_per_page, $paged, $tax_query, $lang_slug){
 			$this_query = array(
 				'fields' => 'ids',
 				'post_type' => $post_type,
 				'posts_per_page' => $posts_per_page,
 				'paged' => $paged,
-				'tax_query' => $tax_query
+				'tax_query' => $tax_query,
+				'product_tag' => 'buy_'.$lang_slug
 			);
 			return new WP_Query($this_query);
 		}
@@ -67,8 +69,7 @@ class copanel_slideshow_widget extends WP_Widget {
 				$this_short_description = get_the_excerpt();
 				$price = number_format(get_post_meta( $this_id, '_price', true ));
 				$bedroom = get_the_terms($this_id, 'pa_bedroom')[0]->name;
-				// $cates = get_the_terms($this_id, 'product_cat');
-				// $price = number_format(get_post_meta( $this_id, '_price', true ));
+				
 				$thumbnail_size = 'full';
 			?></li><li class = 'slide'>
 				<a href = " <?php the_permalink(); ?>" style = 'background-image: url("<?php echo get_the_post_thumbnail_url( $this_id, $thumbnail_size); ?> ")'>
@@ -96,7 +97,7 @@ class copanel_slideshow_widget extends WP_Widget {
 			wp_reset_postdata();
 		}
 
-		$post_list = loadItems('product',$product_slide_num, 1, array());
+		$post_list = loadItems('product',$product_slide_num, 1, array(), $lang_slug);
 		displaySlideshow($post_list, null, $lang_var, $product_slide_num, $first_slide_title, $first_slide_description, $first_slide_background_url);
 
         wp_reset_postdata();
