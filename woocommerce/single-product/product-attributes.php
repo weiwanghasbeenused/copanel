@@ -59,10 +59,11 @@ if ( ! $product_attributes ) {
 	$product_attr_filtered = array();
 	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_bedroom']['value'])).' '.$lang_var[$current_lang]['bedroom'];
 	$product_attr_filtered[] = str_replace(' ', '', strip_tags($product_attributes['attribute_pa_bathroom']['value'])).' '.$lang_var[$current_lang]['bathroom'];
-	$value_housing = strip_tags($product_attributes['attribute_pa_housing-type']['value']);
-	$value_housing = preg_replace('/\s+/u', '', $value_housing);
-	$product_attr_filtered[] = $lang_var[$current_lang][$value_housing];
-
+	if(isset($product_attributes['attribute_pa_housing-type'])){
+		$value_housing = strip_tags($product_attributes['attribute_pa_housing-type']['value']);
+		$value_housing = preg_replace('/\s+/u', '', $value_housing);
+		$product_attr_filtered[] = $lang_var[$current_lang][$value_housing];
+	}
 }
 ?>
 <div class="woocommerce-product-attributes shop_attributes">
