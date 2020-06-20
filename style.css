@@ -1447,8 +1447,8 @@ hover zone related styles are in images/nymap_hover.svg
 	float:left;
 	/*position: absolute;*/
 	margin: 0;
-	transform: translate(0, -240px);
-	margin-bottom: -240px;
+	transform: translate(0, -100%);
+	margin-bottom: -100%;
 	transition: transform .25s, margin-bottom .25s;
 	
 
@@ -1474,6 +1474,7 @@ hover zone related styles are in images/nymap_hover.svg
 	z-index: 500;
 	width: calc(100% + 50px);
 	transform: translate(-25px, 0);
+	margin: -20px 0 25px 0;
 }
 
 #bookmark_toggle > svg{
