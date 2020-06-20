@@ -142,7 +142,7 @@ class copanel_product_list_widget extends WP_Widget {
 				array_unshift($filter_var[$thisAttr]["options"][0], 'no minimum');
 				array_unshift($filter_var[$thisAttr]["options"][1], 'no maximum');
 
-			}else{
+			}else if(!$isRental && !($thisAttr == 'housing-type')){
 				$this_tax = 'pa_'.$thisAttr;
 				$thisAttrOptions = array();
 				$i = 0;
