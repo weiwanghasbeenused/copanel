@@ -358,7 +358,8 @@ class copanel_product_list_widget extends WP_Widget {
 				$price = number_format(get_post_meta( $this_id, '_price', true ));
 				$bedroom = get_the_terms($this_id, 'pa_bedroom')[0]->name;
 				$bathroom = get_the_terms($this_id, 'pa_bathroom')[0]->name;
-				$housing_type = get_the_terms($this_id, 'pa_housing-type')[0]->name;
+				if(!$isRental)
+					$housing_type = get_the_terms($this_id, 'pa_housing-type')[0]->name;
 				$thumbnail_size = 'large';
 			?><li>
 				<a href = " <?php the_permalink(); ?>">
@@ -380,7 +381,7 @@ class copanel_product_list_widget extends WP_Widget {
 				        	}
 			        	} ?>
 			        </div>
-	        		<p><?php echo $bedroom.$lang_var[$current_lang]['bedroom']; ?> | <?php echo $bathroom.$lang_var[$current_lang]['bathroom']; ?> | <?php echo $lang_var[$current_lang][$housing_type]; ?></p>
+	        		<p><?php echo $bedroom.$lang_var[$current_lang]['bedroom']; ?> | <?php echo $bathroom.$lang_var[$current_lang]['bathroom']; ?> <? if(isset($housing_type)){ echo '| '.$lang_var[$current_lang][$housing_type]; } ?></p>
         		</div>
         		</li><?php 
 			}
