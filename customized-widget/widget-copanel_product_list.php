@@ -45,12 +45,14 @@ class copanel_product_list_widget extends WP_Widget {
 		$filter_var["area"]["input-type"] = "checkbox";
 		$filter_var["price"]["input-type"] = "select";
 
-		if($isRental)
+		if($isRental){
+			$filter_var_list = array("bedroom", "bathroom", "area", "price");
 			unset($filter_var["housing-type"]);
+		}
 		else
 			$filter_var["housing-type"]["input-type"] = "checkbox";
 
-		
+
 		if($isRental){
 			$all_query = array(
 				'fields' => 'ids',
@@ -142,7 +144,7 @@ class copanel_product_list_widget extends WP_Widget {
 				array_unshift($filter_var[$thisAttr]["options"][0], 'no minimum');
 				array_unshift($filter_var[$thisAttr]["options"][1], 'no maximum');
 
-			}else if(!$isRental && !($thisAttr == 'housing-type')){
+			}else{
 				$this_tax = 'pa_'.$thisAttr;
 				$thisAttrOptions = array();
 				$i = 0;
