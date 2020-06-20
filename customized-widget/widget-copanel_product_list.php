@@ -347,6 +347,7 @@ class copanel_product_list_widget extends WP_Widget {
 		}
 		function displayList ($post_list, $root_url, $lang_var){
 			global $current_lang;
+			global $isRental;
 			?><ul class = "product_list_ctner">
 			<?php
 			if($post_list->have_posts()){
