@@ -345,9 +345,8 @@ class copanel_product_list_widget extends WP_Widget {
 			);
 			return new WP_Query($this_query);
 		}
-		function displayList ($post_list, $root_url, $lang_var){
+		function displayList ($post_list, $root_url, $lang_var, $isRental){
 			global $current_lang;
-			global $isRental;
 			?><ul class = "product_list_ctner">
 			<?php
 			if($post_list->have_posts()){
@@ -507,7 +506,7 @@ class copanel_product_list_widget extends WP_Widget {
 		</div>
 		<?php
 
-		displayList($post_list, $root_url, $lang_var);
+		displayList($post_list, $root_url, $lang_var, $isRental);
 
 		$total_pages = $post_list->max_num_pages;
 	    if ($total_pages > 1){
