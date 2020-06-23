@@ -42,6 +42,16 @@ switch( $current_lang ){
 	  gtag('js', new Date());
 	  gtag('config', 'UA-166304494-1');
 	</script>
+	<!-- Global site tag (gtag.js) - Google Ads: 636060130 -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-636060130"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'AW-636060130');
+	</script>
+
 </head>
 
 <body <?php body_class(); ?>>
